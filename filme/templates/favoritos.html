@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+Favoritos
+{% endblock %}]
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/favoritos.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main-container">
+    <section class="results-section">
+        <div class="results-container">
+            <h2 class="results-title">Meus Jogos Favoritos</h2>
+
+            {% if lista_episodios_favoritos %}
+                <div class="movie-list">
+                    {% for episodio in lista_episodios_favoritos %}
+
+                        <div class="movie-card">
+
+                            <div class="thumbnail-wrapper"
+                                 data-video-src="{% if episodio.video %}{{ episodio.video.url }}{% endif %}"
+                                 data-episode-id="{{ episodio.id }}">
+
+                                <img src="{{ episodio.thumb.url }}" class="movie-thumbnail" alt="{{ episodio.titulo }}">
+                                <div class="button-play">▶</div>
+
+                        </div>
+
+                            <div class="card-content">
+                                <h3 class="card-title">{{ episodio.titulo }}</h3>
+                                <div class="card-category-star">
+                                    <a href="{% url 'filme:detalhesfilmes' episodio.filme.pk %}">
+                                        <p class="card-category">{{ episodio.filme.categoria }} - {{ episodio.filme.ano }}</p>
+                                    </a>
+                                    <button class="btn-star ativo"
+                                                data-episode-id="{{ episodio.id }}"
+                                                aria-label="Star">
+                                            <i class="fa-solid fa-star"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if episodio.video %}
+                            <video id="video-{{ episodio.id }}" class="video-player w-full rounded mt-4"
+                                   style="display: none;" controls> <source src="{{ episodio.video.url }}" type="video/mp4">
+                            </video>
+                        {% else %}
+                            <p class="text-gray-500 italic">Vídeo não disponível.</p>
+                        {% endif %}
+
+                    {% endfor %}
+
+                </div>
+            {% else %}
+                {# Adicionamos uma mensagem para quando a lista estiver vazia #}
+                <p style="color: #ccc; text-align: center; margin-top: 40px;">Você ainda não favoritou nenhum jogo.</p>
+            {% endif %}
+        </div>
+        <div id="player-overlay" class="player-overlay-container">
+    <div class="meu-player-container">
+        <video id="meu-video" src=""></video>
+
+        <div class="meu-player-controls">
+            <div class="controls-left">
+                <button id="rewind-btn" class="control-btn" aria-label="Retroceder 10s">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </button>
+                <button id="play-pause-btn" class="control-btn" aria-label="Play/Pause">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <button id="forward-btn" class="control-btn" aria-label="Avançar 10s">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+                <div class="volume-container">
+                    <button id="mute-btn" class="control-btn" aria-label="Mudo">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <input type="range" id="volume-bar" class="volume-bar" value="1" min="0" max="1" step="0.01" />
+                </div>
+            </div>
+
+            <div class="controls-right">
+                <div class="time-display">
+                    <span id="current-time">00:00</span> / <span id="duration">00:00</span>
+                </div>
+                <button id="fullscreen-btn" class="control-btn" aria-label="Tela Cheia">
+                    <i class="fa-solid fa-expand"></i>
+                </button>
+            </div>
+        </div>
+
+        <input type="range" id="progress-bar" class="progress-bar" value="0" min="0" max="100" step="0.1" />
+    </div>
+    <button id="close-player-btn" class="close-player-btn">&times;</button>
+</div>
+
+    </section>
+</main>
+{% endblock %}

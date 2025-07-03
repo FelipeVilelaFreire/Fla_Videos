@@ -1,0 +1,62 @@
+/* Container genérico para nossas listas customizadas */
+.readonly-list-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    padding: 10px;
+}
+
+/* A lista dentro do container */
+.readonly-list-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Cada item da lista */
+.readonly-list-container li {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e7e7e7;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Ícone de usuário para as listas de interação */
+.readonly-list-container.user-list li::before {
+    content: '👤';
+    font-size: 14px;
+}
+
+/* Ícone de play para a lista de filmes */
+.readonly-list-container.movie-list li::before {
+    content: '▶';
+    font-size: 10px;
+    color: #5b80b2;
+}
+
+
+.readonly-list-container.star-list li::before {
+    content: '⭐';
+    font-size: 14px;
+}
+
+
+/* Remove a borda do último item da lista */
+.readonly-list-container li:last-child {
+    border-bottom: none;
+}
+
+/* Mensagem de "nenhum item" */
+.readonly-list-container p {
+    font-style: italic;
+    color: #777;
+    padding: 10px;
+    margin: 0;
+}

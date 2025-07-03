@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+Pesquisa de Filme
+{% endblock %}]
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/pesquisa.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main-container">
+
+
+    <section class="results-section">
+        <div class="results-container">
+            <h2 class="results-title">Resultados da Busca</h2>
+            <div class="movie-list">
+                {% for filme in object_list %}
+                    <a href="{% url 'filme:detalhesfilmes' filme.pk %}" class="movie-card">
+                        <img src="{{ filme.thumb.url }}" class="movie-thumbnail" alt="{{ filme.titulo }}">
+
+                        <div class="card-content">
+                            <p class="card-category">{{ filme.categoria }}</p>
+                            <h3 class="card-title">{{ filme.titulo }}</h3>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+</main>
+{% endblock %}

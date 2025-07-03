@@ -1,0 +1,401 @@
+/* =================================
+    Estilos Gerais e Tipografia
+    ================================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+@import url('_colors.css');
+
+:root {
+    --item-grow: 1.25;
+    --duration: 400ms;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-background-deep);
+}
+
+.main-container {
+    background-color: var(--color-background-secondary);
+    min-height: 100vh;
+    width: 100%;
+}
+
+.pagina-inicial header {
+    position: fixed;
+    background: linear-gradient(to bottom, var(--color-overlay-heavy) 0%, transparent);
+    transition: background-color 0.3s ease-in-out;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.pagina-inicial .navbar-brand img {
+    height: 40px;
+    width: auto;
+}
+
+.pagina-inicial header.scrolled {
+    background-color: var(--color-background-secondary);
+}
+
+.pagina-inicial .hero-section {
+    margin-top: 0;
+}
+
+/* =================================
+    Hero Section Aprimorada
+    ================================= */
+.hero-section {
+    height: 100vh;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem 3rem 3rem 4rem;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-overlay-light);
+    z-index: 0;
+}
+
+.hero-content {
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-title {
+    font-size: 3.75rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+    text-shadow: 2px 2px 8px var(--color-shadow-text);
+}
+
+.hero-description {
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    margin: 1rem 0;
+    text-shadow: 1px 1px 4px var(--color-overlay-dark);
+    max-width: 50%;
+}
+
+@media (max-width: 768px) {
+    .hero-description {
+        max-width: 80%;
+    }
+}
+
+.hero-buttons {
+    display: flex;
+    margin-top: 1.5rem;
+    margin-left: 0.75rem;
+}
+
+.play-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(45deg, var(--color-accent-red-secondary), var(--color-accent-red-light));
+    color: var(--color-text-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px var(--color-overlay-light);
+}
+
+.play-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--color-shadow);
+    background: linear-gradient(45deg, var(--color-accent-red-dark), var(--color-accent-red-secondary));
+}
+
+.play-icon {
+    font-size: 1.5rem;
+    color: inherit;
+}
+
+.play-button-text {
+    font-weight: 500;
+}
+
+.movies-section {
+    margin-top: 3rem;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.movies-container {
+    max-width: 100%;
+    margin-bottom: 1rem;
+    padding: 0 3%;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.movies-title {
+    color: var(--color-text-secondary);
+    font-size: 2rem;
+    font-weight: 800;
+    padding: 0 0.5rem !important;
+    margin-bottom: 0rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
+}
+
+.title-carrossel {
+    display: flex;
+    align-items: center;
+}
+
+.title-carrossel svg {
+    height: 1em;
+    width: auto;
+    margin-left: 0.5rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.title-carrossel img {
+    height: 2rem;
+    width: auto;
+    margin-bottom: 0 !important;
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.25rem 1.15rem;
+    z-index: 3;
+    color: var(--color-text-primary);
+    background: linear-gradient(to top, var(--color-overlay-dark) 20%, transparent);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.titulo-com-icone {
+    display: flex;
+    align-items: center;
+    flex-flow: row;
+    gap: 0.5rem;
+}
+
+.icone-campeao {
+    font-size: 1.2rem;
+    color: var(--color-accent-gold);
+}
+
+.movie-card:hover {
+    transform: scale(var(--item-grow, 1.25));
+    z-index: 10;
+    margin: 0 -35px;
+}
+
+.movie-card:hover .image-wrapper {
+    box-shadow: 0 12px 30px var(--color-overlay-medium);
+}
+
+.movie-card:hover .carousel-image {
+    filter: brightness(1.1);
+}
+
+.movie-card:hover .card-content {
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 40%, transparent);
+}
+
+.movie-card:hover .card-title {
+    text-shadow: 0 0 8px var(--color-shadow-text-light);
+}
+
+.card-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+    transition: all 0.4s ease;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.1rem;
+    padding: 0 0.3rem;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.carousel > div {
+    flex: 0 0 80%;
+    min-width: 120px;
+    padding: 0 1px;
+    transition: all var(--duration) ease;
+    position: relative;
+    z-index: 1;
+    border-radius: 12px;
+}
+
+.carousel .aspect-\[16\/11\] {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 15px var(--color-shadow);
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: filter var(--duration) ease;
+}
+
+.carousel .aspect-\[16\/11\]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--color-overlay-medium) 0%, var(--color-overlay-heavy) 100%);
+    opacity: 0;
+    transition: opacity var(--duration) ease;
+    border-radius: 12px;
+}
+
+.carousel > div:hover {
+    margin: 0 40px;
+    transform: scale(var(--item-grow));
+    box-shadow: 0 12px 30px var(--color-overlay-medium);
+    z-index: 10;
+    border-radius: 12px;
+}
+
+.carousel > div:hover img {
+    filter: brightness(1.2) contrast(1.05);
+    border-radius: 12px;
+}
+
+.carousel > div:hover .aspect-\[16\/11\]::after {
+    opacity: 1;
+    border-radius: 12px;
+}
+
+.arrow__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    color: var(--color-text-primary);
+    padding: 0.5rem 1rem;
+    z-index: 20;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.arrow__btn:hover {
+    background: var(--color-overlay-dark);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.arrow__btn.left-0 {
+    left: -2rem;
+}
+
+.arrow__btn.right-0 {
+    right: -2rem;
+}
+
+/* Responsive design */
+@media (min-width: 400px) {
+    .carousel > div {
+        flex: 0 0 45%;
+        min-width: 150px;
+    }
+    .carousel > div:hover {
+        margin: 0 20px;
+        transform: scale(1.1);
+    }
+}
+
+@media (min-width: 768px) {
+    .movies-title {
+        font-size: 2rem;
+        padding: 0 0.5rem;
+    }
+    .carousel > div {
+        flex: 0 0 33.33%;
+        min-width: 200px;
+    }
+    .carousel > div:hover {
+        margin: 0 25px;
+        transform: scale(var(--item-grow, 1.2));
+    }
+    .arrow__btn {
+        font-size: 2.5rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .carousel > div {
+        flex: 0 0 25%;
+        min-width: 220px;
+        padding: 0 2px;
+    }
+    .carousel > div:hover {
+        margin: 0 30px;
+        transform: scale(var(--item-grow, 1.15));
+    }
+}
+
+@media (min-width: 1400px) {
+    .carousel > div {
+        flex: 0 0 20%;
+        min-width: 250px;
+        padding: 0 3px;
+    }
+    .carousel > div:hover {
+        margin: 0 35px;
+        transform: scale(var(--item-grow, 1.1));
+    }
+}
+
+@media (min-width: 1920px) {
+    .carousel > div {
+        flex: 0 0 16.66%;
+        min-width: 280px;
+        padding: 0 4px;
+    }
+    .carousel > div:hover {
+        margin: 0 40px;
+        transform: scale(var(--item-grow, 1.08));
+    }
+}

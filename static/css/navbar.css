@@ -1,0 +1,223 @@
+@import url('_colors.css'); /* Importa a paleta de cores central */
+
+/* --- CONFIGURAÇÃO GLOBAL E TIPOGRAFIA --- */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* --- HEADER PRINCIPAL --- */
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2.5rem;
+  background: linear-gradient(to right, var(--color-background-primary), var(--color-background-primary));
+  border-bottom: 1px solid var(--color-border-subtle);
+  box-shadow: 0 5px 25px -3px var(--color-shadow);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+}
+
+.main-header.hidden {
+  transform: translateY(-100%);
+}
+
+.header-logo-container {
+  display: flex;
+  align-items: center;
+  padding-left: 2.5rem;
+}
+
+.flacvideo-logo {
+  height: 4.5rem;
+  width: auto;
+}
+
+.header-nav-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* --- TÍTULOS DE CARROSSEL --- */
+.title-carrossel {
+  display: flex;
+  align-items: center;
+}
+
+.movies-title {
+  color: var(--color-text-secondary);
+  font-size: 2rem;
+  font-weight: 800;
+  padding: 0 1rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.title-carrossel img {
+  height: 2rem;
+  width: auto;
+  margin-left: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* --- BARRA DE PESQUISA REFINADA (COM ANIMAÇÃO) --- */
+.search-bar-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar-wrapper form {
+  display: flex;
+  align-items: center;
+}
+
+.search-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: width 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background-color: var(--color-background-element);
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: 9999px;
+  position: relative;
+  box-shadow: 0 0 8px var(--color-shadow);
+}
+
+.search-input-container.active {
+  width: 20rem;
+  height: 2.5rem;
+  border-color: var(--color-accent-red-secondary);
+  box-shadow: 0 0 10px var(--color-shadow-accent);
+  justify-content: flex-start;
+}
+
+.search-icon {
+  color: var(--color-text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: color 0.3s ease-in-out, left 0.3s ease-in-out;
+  width: 1.25rem;
+  height: 1.25rem;
+  z-index: 10;
+}
+
+.search-input-container.active .search-icon {
+  left: 0.75rem;
+  transform: translateY(-50%);
+  color: var(--color-accent-red-secondary);
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border: none;
+  border-radius: 9999px;
+  transition: opacity 0.3s ease-in-out;
+  box-sizing: border-box;
+  opacity: 0;
+  position: relative;
+}
+
+.search-input-container.active .search-input {
+  opacity: 1;
+}
+
+.search-input::placeholder {
+  color: var(--color-text-placeholder);
+  font-weight: 400;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.hidden-submit {
+  display: none;
+}
+
+/*
+===============================================================
+   Estilo para o Botão de Favoritos no Cabeçalho
+   Versão: Dourado Minimalista com Brilho no Hover
+===============================================================
+*/
+
+/* Container do link (sem alterações) */
+.favorites-link-wrapper a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Estilo principal do botão */
+.btn-header-favorites {
+    color: var(--color-text-primary);
+    padding: 14px 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 30px; /* Fonte maior */
+    font-weight: 500;
+}
+
+/* Estilo do ícone de estrela (estado padrão, sem brilho) */
+.btn-header-favorites .fa-star {
+    color: var(--color-accent-gold);
+    font-size: 25px; /* Ícone maior */
+    transition: text-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Opcional: texto "Favoritos" ao lado do ícone */
+.btn-header-favorites .nav-text {
+    line-height: 1;
+}
+
+.btn-header-favorites:hover {
+    transform: scale(1.05);
+}
+
+/* A estrela GANHA O BRILHO apenas no hover */
+.btn-header-favorites:hover .fa-star {
+    text-shadow: 0 0 8px var(--color-accent-gold), 0 0 16px var(--color-shadow-gold-glow);
+    font-size: 25px; /* Ícone maior */
+}
+
+
+/* --- BOTÕES COM ESTILO UNIFICADO --- */
+.login-button,
+.profile-button {
+  padding: 0.6rem 1.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  color: var(--color-text-primary);
+  background-color: var(--color-accent-red-dark);
+  border: 2px solid var(--color-accent-red-dark);
+}
+
+.login-button:hover,
+.profile-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px -1px var(--color-shadow);
+  background-color: var(--color-accent-red-hover);
+  border-color: var(--color-accent-red-hover);
+}

@@ -1,0 +1,381 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_class %}pagina-inicial{% endblock %}
+
+{% block titulo %}
+HomeFilmes Flavideo
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/homefilmes.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main class="main-container">
+
+        <!-- FILME EM DESTAQUE -->
+
+    <section class="hero-section" style="background-image: url('{{ filme_destaque.thumb.url }}');">
+      <div class="hero-content">
+        <h2 class="hero-title">{{ filme_destaque.titulo }}</h2>
+        <div class="hero-buttons">
+          <a href="{% url 'filme:detalhesfilmes' filme_destaque.pk %}">
+            <button class="play-button">
+              <ion-icon name="play" class="play-icon"></ion-icon>
+              <span class="play-button-text">Play</span>
+            </button>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="movies-section">
+
+
+             <!-- ASSISTIDOS -->
+
+        {% if filmes_vistos_do_usuario|length > 0 %}
+        <div class="movies-container">
+          <div class="title-carrossel">
+            <h2 class="movies-title">Assistidos</h2>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Assistido">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+          </div>
+          <div class="relative">
+            <!-- Botão Esquerdo -->
+            {% if filmes_vistos_do_usuario|length > 5%}
+          <button class="arrow__btn left-0" onclick="scrollCarousel(this, -1)">‹</button>
+            {% endif %}
+            <!-- Carrossel -->
+            <div class="carousel flex overflow-x-auto scroll-smooth no-scrollbar min-w-0 py-5">
+          {% for filme in filmes_vistos_do_usuario %}
+            <div class="flex-shrink-0 w-1/4 px-1 transition-transform duration-300 group">
+              <a href="{% url 'filme:detalhesfilmes' filme.pk %}" class="block">
+                <div class="aspect-[16/11] w-full overflow-hidden shadow-lg relative">
+                  <img
+                    src="{{ filme.thumb.url }}"
+                    alt="{{ filme.titulo }}"
+                    class="w-full h-full object-cover transition duration-300 transform group-hover:brightness-110 rounded-lg"
+                  />
+                  <div class="card-content">
+                    <div class="titulo-com-icone">
+                      <h3 class="card-title">{{ filme.titulo }}</h3>
+                      {% if filme.campeao %}
+                        <span class="icone-campeao">🏆</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <!-- Overlay escuro no hover -->
+                  <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+          </div>
+            {% if filmes_vistos_do_usuario|length > 5%}
+            <!-- Botão Direito -->
+            <button class="arrow__btn right-0" onclick="scrollCarousel(this, 1)">›</button>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+              <!-- RECENTES -->
+
+        {% if lista_filmes_recentes|length > 0%}
+        <div class="movies-container">
+          <div class="title-carrossel">
+            <h2 class="movies-title">Recentes</h2>
+            <svg class="new-tag-svg" viewBox="0 0 80 30" role="img" aria-label="New">
+              <rect width="80" height="30" rx="6" fill="#ef4444" />
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+                    fill="white" font-size="16" font-family="Arial, sans-serif" font-weight="bold">
+                NEW
+              </text>
+            </svg>
+          </div>
+          <div class="relative">
+            {% if lista_filmes_recentes|length > 5%}
+            <!-- Botão Esquerdo -->
+          <button class="arrow__btn left-0" onclick="scrollCarousel(this, -1)">‹</button>
+            {% endif %}
+            <!-- Carrossel -->
+            <div class="carousel flex overflow-x-auto scroll-smooth no-scrollbar min-w-0 py-5">
+          {% for filme in lista_filmes_recentes %}
+            <div class="flex-shrink-0 w-1/4 px-1 transition-transform duration-300 group">
+              <a href="{% url 'filme:detalhesfilmes' filme.pk %}" class="block">
+                <div class="aspect-[16/11] w-full overflow-hidden shadow-lg relative">
+                  <img
+                    src="{{ filme.thumb.url }}"
+                    alt="{{ filme.titulo }}"
+                    class="w-full h-full object-cover transition duration-300 transform group-hover:brightness-110 rounded-lg"
+                  />
+                  <div class="card-content">
+                    <div class="titulo-com-icone">
+                      <h3 class="card-title">{{ filme.titulo }}</h3>
+                      {% if filme.campeao %}
+                        <span class="icone-campeao">🏆</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <!-- Overlay escuro no hover -->
+                  <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+            {% if lista_filmes_recentes|length > 5%}
+            <!-- Botão Direito -->
+            <button class="arrow__btn right-0" onclick="scrollCarousel(this, 1)">›</button>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+              <!-- EM ALTA -->
+
+        {% if lista_filmes_em_alta|length > 0%}
+        <div class="movies-container">
+          <div class="title-carrossel">
+            <h2 class="movies-title">Em alta</h2>
+            <img  src="{% static 'imagens/Em_alta_chamas.webp' %}" alt="">
+          </div>
+
+          <div class="relative">
+            {% if lista_filmes_em_alta|length > 5%}
+            <!-- Botão Esquerdo -->
+          <button class="arrow__btn left-0" onclick="scrollCarousel(this, -1)">‹</button>
+            {% endif %}
+            <!-- Carrossel -->
+            <div class="carousel flex overflow-x-auto scroll-smooth no-scrollbar min-w-0 py-5">
+
+
+            {% for filme in lista_filmes_em_alta %}
+              <div class="flex-shrink-0 w-60   px-1 transition-transform duration-300 group">
+                <a href="{% url 'filme:detalhesfilmes' filme.pk %}" class="block">
+                  <div class="aspect-[4/5] w-full overflow-hidden shadow-lg relative">
+                    <img
+                      src="{{ filme.thumb.url }}"
+                      alt="{{ filme.titulo }}"
+                      class="w-full h-full object-cover transition duration-300 transform group-hover:brightness-110 rounded-lg"
+                    />
+                    <div class="card-content">
+                      <div class="titulo-com-icone">
+                        <h3 class="card-title">{{ filme.titulo }}</h3>
+                        {% if filme.campeao %}
+                          <span class="icone-campeao">🏆</span>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <!-- Overlay escuro no hover -->
+                    <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+
+      </div>
+            <!-- Botão Direito -->
+            {% if lista_filmes_em_alta|length > 5%}
+            <button class="arrow__btn right-0" onclick="scrollCarousel(this, 1)">›</button>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+              <!-- COPA DO BRASIL -->
+
+        {% if lista_filmes_copadobrasil|length > 0%}
+        <div class="movies-container">
+          <div class="title-carrossel">
+            <h2 class="movies-title">Copa do Brasil</h2>
+            <img  src="{% static 'imagens/Copa_do_Brasil_logo.webp' %}" alt="">
+          </div>
+          <div class="relative">
+            {% if lista_filmes_copadobrasil|length > 5%}
+            <!-- Botão Esquerdo -->
+            <button class="arrow__btn left-0" onclick="scrollCarousel(this, -1)">‹</button>
+            {% endif %}
+            <!-- Carrossel -->
+            <div class="carousel flex overflow-x-auto scroll-smooth no-scrollbar min-w-0 py-5">
+            {% for filme in lista_filmes_copadobrasil %}
+            <div class="flex-shrink-0 w-1/4 px-1 transition-transform duration-300 group">
+              <a href="{% url 'filme:detalhesfilmes' filme.pk %}" class="block">
+                <div class="aspect-[16/11] w-full overflow-hidden shadow-lg relative">
+                  <img
+                    src="{{ filme.thumb.url }}"
+                    alt="{{ filme.titulo }}"
+                    class="w-full h-full object-cover transition duration-300 transform group-hover:brightness-110 rounded-lg"
+                  />
+                  <div class="card-content">
+                    <div class="titulo-com-icone">
+                      <h3 class="card-title">{{ filme.titulo }}</h3>
+                      {% if filme.campeao %}
+                        <span class="icone-campeao">🏆</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <!-- Overlay escuro no hover -->
+                  <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+      </div>
+            {% if lista_filmes_copadobrasil|length > 5%}
+            <!-- Botão Direito -->
+            <button class="arrow__btn right-0" onclick="scrollCarousel(this, 1)">›</button>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+                <!-- COPA DO MUNDO DE CLUBES -->
+
+        {% if lista_filmes_copadomundodeclubes|length > 0%}
+        <div class="movies-container">
+          <div class="title-carrossel">
+            <h2 class="movies-title">Copa do Mundo de Clubes da Fifa </h2>
+            <img  src="{% static 'imagens/Taca_Mundial_de_Clubes_da_Fifa2025.png' %}" alt="">
+          </div>
+          <div class="relative">
+            {% if lista_filmes_copadomundodeclubes|length > 5%}
+            <!-- Botão Esquerdo -->
+            <button class="arrow__btn left-0" onclick="scrollCarousel(this, -1)">‹</button>
+            {% endif %}
+            <!-- Carrossel -->
+            <div class="carousel flex overflow-x-auto scroll-smooth no-scrollbar min-w-0 py-5">
+            {% for filme in lista_filmes_copadomundodeclubes %}
+            <div class="flex-shrink-0 w-1/4 px-1 transition-transform duration-300 group">
+              <a href="{% url 'filme:detalhesfilmes' filme.pk %}" class="block">
+                <div class="aspect-[16/11] w-full overflow-hidden shadow-lg relative">
+                  <img
+                    src="{{ filme.thumb.url }}"
+                    alt="{{ filme.titulo }}"
+                    class="w-full h-full object-cover transition duration-300 transform group-hover:brightness-110 rounded-lg"
+                  />
+                  <div class="card-content">
+                    <div class="titulo-com-icone">
+                      <h3 class="card-title">{{ filme.titulo }}</h3>
+                      {% if filme.campeao %}
+                        <span class="icone-campeao">🏆</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <!-- Overlay escuro no hover -->
+                  <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+      </div>
+            {% if lista_filmes_copadomundodeclubes|length > 5%}
+            <!-- Botão Direito -->
+            <button class="arrow__btn right-0" onclick="scrollCarousel(this, 1)">›</button>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+                <!-- LIBERTADORES -->
+
+        {% if lista_filmes_libertadores|length > 0%}
+        <div class="movies-container">
+          <div class="title-carrossel">
+            <h2 class="movies-title">Libertadores</h2>
+            <img  src="{% static 'imagens/libertadores_taca.png' %}" alt="">
+          </div>
+          <div class="relative">
+            {% if lista_filmes_libertadores|length > 5%}
+            <!-- Botão Esquerdo -->
+            <button class="arrow__btn left-0" onclick="scrollCarousel(this, -1)">‹</button>
+            {% endif %}
+            <!-- Carrossel -->
+            <div class="carousel flex overflow-x-auto scroll-smooth no-scrollbar min-w-0 py-5">
+            {% for filme in lista_filmes_libertadores %}
+            <div class="flex-shrink-0 w-1/4 px-1 transition-transform duration-300 group">
+              <a href="{% url 'filme:detalhesfilmes' filme.pk %}" class="block">
+                <div class="aspect-[16/11] w-full overflow-hidden shadow-lg relative">
+                  <img
+                    src="{{ filme.thumb.url }}"
+                    alt="{{ filme.titulo }}"
+                    class="w-full h-full object-cover transition duration-300 transform group-hover:brightness-110 rounded-lg"
+                  />
+                  <div class="card-content">
+                    <div class="titulo-com-icone">
+                      <h3 class="card-title">{{ filme.titulo }}</h3>
+                      {% if filme.campeao %}
+                        <span class="icone-campeao">🏆</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <!-- Overlay escuro no hover -->
+                  <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+      </div>
+            {% if lista_filmes_libertadores|length > 5%}
+            <!-- Botão Direito -->
+            <button class="arrow__btn right-0" onclick="scrollCarousel(this, 1)">›</button>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+        {% if lista_filmes_brasileirão|length > 0%}
+        <div class="movies-container">
+          <div class="title-carrossel">
+            <h2 class="movies-title">Brasileirão</h2>
+            <img  src="{% static 'imagens/brasileirao_taca.png' %}" alt="">
+          </div>
+          <div class="relative">
+            {% if lista_filmes_brasileirao|length > 5%}
+            <!-- Botão Esquerdo -->
+            <button class="arrow__btn left-0" onclick="scrollCarousel(this, -1)">‹</button>
+            {% endif %}
+            <!-- Carrossel -->
+            <div class="carousel flex overflow-x-auto scroll-smooth no-scrollbar min-w-0 py-5">
+            {% for filme in lista_filmes_brasileirão %}
+            <div class="flex-shrink-0 w-1/4 px-1 transition-transform duration-300 group">
+              <a href="{% url 'filme:detalhesfilmes' filme.pk %}" class="block">
+                <div class="aspect-[16/11] w-full overflow-hidden shadow-lg relative">
+                  <img
+                    src="{{ filme.thumb.url }}"
+                    alt="{{ filme.titulo }}"
+                    class="w-full h-full object-cover transition duration-300 transform group-hover:brightness-110 rounded-lg"
+                  />
+                  <div class="card-content">
+                    <div class="titulo-com-icone">
+                      <h3 class="card-title">{{ filme.titulo }}</h3>
+                      {% if filme.campeao %}
+                        <span class="icone-campeao">🏆</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <!-- Overlay escuro no hover -->
+                  <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+      </div>
+            {% if lista_filmes_brasileirão|length > 5%}
+            <!-- Botão Direito -->
+            <button class="arrow__btn right-0" onclick="scrollCarousel(this, 1)">›</button>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+    </section>
+
+  </main>
+
+{% endblock %}

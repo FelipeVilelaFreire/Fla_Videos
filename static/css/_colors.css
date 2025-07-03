@@ -1,0 +1,52 @@
+/* ===============================================================
+   _colors.css - Paleta de Cores Centralizada
+   =============================================================== */
+:root {
+    /* -- CORES DE FUNDO -- */
+    --color-background-primary: #0a0a0a;
+    --color-background-secondary: #141414;
+    --color-background-content: #1a202c; /* Usado em páginas de formulário */
+    --color-background-element: #18181b; /* Para elementos como a barra de busca */
+    --color-background-card: #1c1c1c;
+
+    /* -- CORES DE TEXTO -- */
+    --color-text-primary: #f5f5f5;
+    --color-text-secondary: #d1d5db;
+    --color-text-muted: #9ca3af;
+    --color-text-placeholder: #71717a;
+    --color-text-inverse: #000000; /* Para texto em fundos claros */
+
+    /* -- CORES DE ACENTO (VERMELHO) -- */
+    --color-accent-red: #e50914; /* Vermelho principal (homepage) */
+    --color-accent-red-secondary: #ef4444; /* Vermelho secundário (botões, highlights) */
+    --color-accent-red-hover: #dc2626;
+    --color-accent-red-dark: #b91c1c;/* Background(botões, highlights) */
+    --color-accent-red-light: #f87171;
+
+    /* -- CORES DE ACENTO (OUTRAS) -- */
+    --color-accent-gold: #ffd700;
+    --color-accent-green: #22c55e;
+    --color-accent-green-dark: #15803d;
+    --color-accent-pink: #ec4899;
+    --color-accent-pink-dark: #be185d;
+
+    /* -- CORES DE BORDA -- */
+    --color-border-subtle: rgba(255, 255, 255, 0.1);
+    --color-border-medium: #374151;
+    --color-border-strong: #4b5563;
+
+    /* -- CORES DE OVERLAY E SOMBRAS -- */
+    --color-overlay-light: rgba(0, 0, 0, 0.2);
+    --color-overlay-medium: rgba(0, 0, 0, 0.5);
+    --color-overlay-heavy: rgba(0, 0, 0, 0.7);
+    --color-overlay-dark: rgba(0, 0, 0, 0.9);
+
+    /* -- CORES DE SOMBRA (para box-shadow, text-shadow) -- */
+    --color-shadow: rgba(0, 0, 0, 0.25);
+    --color-shadow-strong: rgba(0, 0, 0, 0.5);
+    --color-shadow-accent: rgba(239, 68, 68, 0.3);
+    --color-shadow-accent-hover: rgba(239, 68, 68, 0.4);
+    --color-shadow-text: rgba(0, 0, 0, 0.8);
+    --color-shadow-text-light: rgba(255, 255, 255, 0.5);
+    --color-shadow-gold-glow: rgba(255, 215, 0, 0.7);
+}

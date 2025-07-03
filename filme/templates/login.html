@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+Login
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/editarperfil.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main-content login-page background-image-container">
+    <div class="overlay" aria-hidden="true"></div>
+
+    <div class="form-container">
+        <div class="form-card">
+            <div class="card-header">
+                <h1 class="card-title">
+                    Acesse sua Conta
+                </h1>
+                <p class="card-subtitle">Bem-vindo de volta, Nação!</p>
+            </div>
+
+            <form method="post" class="auth-form">
+                {% csrf_token %}
+                <fieldset>
+                    {{ form|crispy }}
+                </fieldset>
+                <div>
+                    <button class="btn-primary" type="submit">
+                        Fazer Login
+                    </button>
+                </div>
+            </form>
+
+            <div class="card-bottom-text">
+                <span>Não tem uma conta?</span>
+                <a href="{% url 'filme:criarconta' %}" class="card-bottom-link">
+                    Crie uma agora
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="app-footer">
+    <div class="footer-content-wrapper">
+        <div class="footer-links">
+            <p class="footer-text">© {% now "Y" %} FlaTV. Todos os direitos reservados.</p>
+            <p class="footer-text-secondary">Uma plataforma para torcedores.</p>
+            <p class="footer-text-tech">Feito para Python (Django) & TailwindCSS</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}

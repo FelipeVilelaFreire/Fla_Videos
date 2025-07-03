@@ -1,0 +1,89 @@
+{% load static %}
+
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+{% endblock %}
+
+<nav>
+<header class="main-header">
+  <div class="header-logo-container">
+    <a href="/">
+      <img
+         src="{% static 'imagens/FlaVideo_oficial.png' %}"
+        alt="FlaVideo Logo"
+        class="flacvideo-logo"
+      />
+    </a>
+  </div>
+
+  <div class="header-nav-container">
+    {% if user.is_authenticated %}
+    <div class="search-bar-wrapper">
+      <form method="get" action="{% url 'filme:pesquisafilme' %}">
+        <div class="search-input-container">
+          <svg
+            class="search-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            placeholder="Pesquisar vídeos..."
+            class="search-input"
+            name="query"
+            value="{{ request.GET.query }}"
+          />
+          <input type="submit" value="" class="hidden-submit">
+        </div>
+      </form>
+    </div>
+
+
+        {% if user.is_authenticated %}
+            {# Primeiro, salvamos a URL da página de favoritos em uma variável para facilitar a comparação #}
+            {% url 'filme:favoritos' as favoritos_url %}
+
+            {# Agora, verificamos se o caminho da página atual (request.path) é DIFERENTE da URL de favoritos #}
+            {% if request.path != favoritos_url %}
+                <div class="favorites-link-wrapper">
+                  <a href="{{ favoritos_url }}" title="Meus Favoritos">
+                    <button class="btn-header-favorites">
+                        <i class="fa-solid fa-star"></i>
+                    </button>
+                  </a>
+                </div>
+            {% endif %}
+        {% endif %}
+
+    <form method="post" action="{% url 'filme:logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="login-button">Sair</button>
+      </form>
+    <a href="{% url 'filme:editarperfil' request.user.pk %}">
+        <button type="button" class="profile-button">
+          Perfil
+        </button>
+      </a>
+    {% else %}
+      <a href="{% url 'filme:login'%}">
+        <button type="button" class="login-button">
+          Login
+        </button>
+      </a>
+     {% endif %}
+
+  </div>
+</header>
+</nav>

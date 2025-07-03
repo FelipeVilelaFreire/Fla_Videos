@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+Logout
+{% endblock %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/editarperfil.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<main class="main-content logout-page background-image-container">
+    <div class="overlay" aria-hidden="true"></div>
+
+    <div class="form-container logout-width">
+        <div class="form-card logout-card">
+
+            <div class="card-header">
+                <h1 class="card-title logout-title">
+                    Você saiu da sua conta
+                </h1>
+                <p class="card-description">
+                    Sessão encerrada com segurança. Esperamos ver você novamente em breve!
+                </p>
+            </div>
+
+            <div class="button-group">
+                <a href="{% url 'filme:login' %}" class="btn-primary">
+                    Fazer Login
+                </a>
+                <a href="{% url 'filme:criarconta' %}" class="btn-secondary">
+                    Criar uma Conta
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="app-footer">
+    <div class="footer-content-wrapper">
+        <div class="footer-links">
+            <p class="footer-text">© {% now "Y" %} FlaTV. Todos os direitos reservados.</p>
+            <p class="footer-text-secondary">Uma plataforma para torcedores.</p>
+            <p class="footer-text-tech">Feito com Python (Django) & TailwindCSS</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}
